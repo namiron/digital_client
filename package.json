@@ -18,6 +18,7 @@
     "babel-plugin-inline-dotenv": "^1.7.0",
     "babel-preset-expo": "^13.1.11",
     "expo": "~53.0.9",
+    "expo-secure-store": "^14.2.3",
     "expo-splash-screen": "^0.30.8",
     "expo-status-bar": "~2.2.3",
     "react": "19.0.0",
@@ -27,6 +28,7 @@
     "react-native-reanimated": "~3.17.4",
     "react-native-safe-area-context": "5.4.0",
     "react-native-screens": "~4.10.0",
+    "react-native-toast-message": "^2.3.0",
     "react-redux": "^9.2.0"
   },
   "devDependencies": {

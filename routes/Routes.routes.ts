@@ -4,10 +4,6 @@ import { IRoute } from "./types/ways.types";
 
 export const routes: IRoute[] = [
   {
-    name: "Auth",
-    component: Auth,
-  },
-  {
     name: "Home",
     component: Home,
   },

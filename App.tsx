@@ -1,15 +1,14 @@
-import { SafeAreaProvider } from "react-native-safe-area-context";
-import { Ways } from "./routes/Ways.routes";
-import AuthProvider from "./providers/auth/auth.provider";
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { AuthProvider } from "./providers/auth/auth.context";
+import PrivateNavigator from "./routes/PrivateNavigator";
 
 export default function App() {
   return (
-    <>
-      <AuthProvider>
-        <SafeAreaProvider>
-          <Ways />
-        </SafeAreaProvider>
-      </AuthProvider>
-    </>
+    <AuthProvider>
+      <NavigationContainer>
+        <PrivateNavigator />
+      </NavigationContainer>
+    </AuthProvider>
   );
 }

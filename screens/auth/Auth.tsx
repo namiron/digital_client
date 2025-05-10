@@ -1,72 +1,46 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Text, View } from "react-native";
+import { AuthContext } from "../../providers/auth/auth.context";
+import { AuthService } from "../../services/auth/auth.service";
 import { styles } from "./styles/auth.styles";
-import { IAuthFormData } from "./types/auth.types";
-import { HAVE_LOGIN, LOGIN, REGISTER, SIGN_UP } from "./constants/auth.constants";
-import { Loading } from "../../ui/ui-loading/Loading";
-import UiButton from "../../ui/ui-button/Button";
 import Field from "../../ui/ui-field/field";
+import UiButton from "../../ui/ui-button/Button";
 
-const Auth: React.FC = () => {
-  //--------------------------
-  const [isReg, setIsReg] = useState(true);
-  const { handleSubmit, reset, control } = useForm<IAuthFormData>({
-    mode: "onChange",
+const Auth = () => {
+  const [isLogin, setIsLogin] = useState(true);
+  const { setUser } = useContext(AuthContext);
+  const { handleSubmit, control, reset } = useForm({
+    defaultValues: { name: "", email: "", password: "" },
   });
-  const isLoading = false;
-  const onSubmit: SubmitHandler<IAuthFormData> = (data) => {
-    console.log(data);
-    reset();
+
+  const onSubmit: SubmitHandler<any> = async (data) => {
+    try {
+      const user = isLogin ? await AuthService.login(data) : await AuthService.register(data);
+      setUser(user);
+    } catch (e) {
+      console.error("Auth error", e);
+    } finally {
+      reset();
+    }
   };
-  //--------------------------
 
   return (
     <View style={styles.wrapper}>
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <>
-          <Text style={styles.title}>{isReg ? LOGIN : REGISTER}</Text>
-          <View style={styles.form}>
-            {isReg ? "" : <Field control={control} name="name" placeholder="Enter name" rules={{ required: "Name is required" }} />}
-            <Field
-              control={control}
-              name="email"
-              placeholder="Enter email"
-              keyboardType="email-address"
-              rules={{
-                required: "Email is required",
-                pattern: {
-                  value: /^\S+@\S+$/i,
-                  message: "Invalid email address",
-                },
-              }}
-            />
-            <Field
-              control={control}
-              name="password"
-              placeholder="Enter password"
-              secureTextEntry
-              rules={{
-                required: "Password is required",
-                minLength: {
-                  value: 6,
-                  message: "Minimum length is 6 characters",
-                },
-              }}
-            />
-            <UiButton onPress={handleSubmit(onSubmit)} buttonStyles={styles.button} textStyles={styles.buttonText}>
-              {isReg ? LOGIN : REGISTER}
-            </UiButton>
-            <UiButton buttonStyles={styles.signUp} onPress={() => setIsReg((prev) => !prev)}>
-              <Text style={styles.signUp}>
-                {isReg ? SIGN_UP : HAVE_LOGIN} <Text style={styles.accountLink}>{isReg ? REGISTER : LOGIN}</Text>
-              </Text>
-            </UiButton>
-          </View>
-        </>
-      )}
+      <Text style={styles.title}>{isLogin ? "Login" : "Register"}</Text>
+
+      <View style={styles.form}>
+        {!isLogin && <Field control={control} name="name" placeholder="Enter name" rules={{ required: "Name required" }} />}
+        <Field control={control} name="email" placeholder="Enter email" rules={{ required: "Email required" }} />
+        <Field control={control} name="password" placeholder="Enter password" rules={{ required: "Password required" }} secureTextEntry />
+
+        <UiButton style={styles.button} onPress={handleSubmit(onSubmit)}>
+          <Text style={styles.buttonText}> {isLogin ? "Login" : "Register"}</Text>
+        </UiButton>
+        <UiButton onPress={() => setIsLogin(!isLogin)}>
+          <Text style={styles.signUp}>{isLogin ? "No account? Register" : "Already have account? Login"}</Text>
+        </UiButton>
+      </View>
     </View>
   );
 };

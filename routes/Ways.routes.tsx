@@ -8,14 +8,7 @@ const Stack = createNativeStackNavigator<TypeRootStackParamList>();
 export function Ways() {
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-          contentStyle: {
-            backgroundColor: "#fff",
-          },
-        }}
-      >
+      <Stack.Navigator>
         {routes.map((route) => (
           <Stack.Screen key={route.name} {...route} />
         ))}
@@ -23,3 +16,10 @@ export function Ways() {
     </NavigationContainer>
   );
 }
+
+// screenOptions={{
+//   headerShown: false,
+//   contentStyle: {
+//     backgroundColor: "#fff",
+//   },
+// }}

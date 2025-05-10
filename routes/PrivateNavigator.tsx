@@ -1,14 +1,13 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { useAuth } from "../hooks/useAuth";
 import { TypeRootStackParamList } from "./types/ways.types";
 import { routes } from "./Routes.routes";
-import { useAuth } from "../hooks/useAuth";
 import Auth from "../screens/auth/Auth";
 
 const Stack = createNativeStackNavigator<TypeRootStackParamList>();
 
 const PrivateNavigator = () => {
   const { user } = useAuth();
-  console.log(user);
 
   return (
     <Stack.Navigator
@@ -23,4 +22,5 @@ const PrivateNavigator = () => {
     </Stack.Navigator>
   );
 };
+
 export default PrivateNavigator;
