@@ -8,17 +8,20 @@ const Item = () => {
   const route = useRoute<RouteProp<{ params: { laureate: ILaureateData } }, "params">>();
   const { laureate } = route.params;
 
-  const affiliationsText = laureate.affiliations?.length
-    ? laureate.affiliations.map((affiliation, index) => (
-        <Text key={index}>
-          {affiliation.name}, {affiliation.city}, {affiliation.country}
-        </Text>
-      ))
-    : null;
+  const validAffiliations = Array.isArray(laureate.affiliations)
+    ? laureate.affiliations.filter(
+        (aff) => aff && typeof aff === "object" && !Array.isArray(aff) && ("name" in aff || "city" in aff || "country" in aff)
+      )
+    : [];
 
-  const year: string = "Year:";
-  const motivation: string = "Motivation:";
-  const country: string = " Country:";
+  const affiliationsText =
+    validAffiliations.length > 0
+      ? validAffiliations.map((affiliation, index) => (
+          <Text key={index}>
+            {affiliation.name} {affiliation.city} {affiliation.country}
+          </Text>
+        ))
+      : null;
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -26,15 +29,16 @@ const Item = () => {
         {laureate.firstname} {laureate.surname}
       </Text>
       <Text style={styles.info}>
-        {year} <Text style={styles.highlight}>{laureate.year}</Text>
+        Year: <Text style={styles.highlight}>{laureate.year}</Text>
       </Text>
       <Text style={styles.info}>
-        {motivation}
-        <Text style={styles.highlight}>{laureate.motivation}</Text>
+        Motivation: <Text style={styles.highlight}>{laureate.motivation}</Text>
       </Text>
-      <Text style={styles.info}>
-        {country} <Text style={styles.highlight}>{affiliationsText}</Text>
-      </Text>
+      {affiliationsText ? (
+        <Text style={styles.info}>
+          Country: <Text style={styles.highlight}>{affiliationsText}</Text>
+        </Text>
+      ) : null}
     </ScrollView>
   );
 };

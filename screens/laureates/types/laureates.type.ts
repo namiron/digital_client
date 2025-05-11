@@ -5,7 +5,7 @@ export interface ILaureateData {
   year: string;
   motivation: string;
   category?: string;
-  affiliations?: ILaureate[] | [];
+  affiliations: ILaureate[] | [];
 }
 
 interface ILaureate {

@@ -9,7 +9,6 @@ interface LaureatesListProps {
 }
 
 const LaureatesList: React.FC<LaureatesListProps> = ({ currentLaureates, gatToLaureate }) => {
-
   return (
     <FlatList
       data={currentLaureates}
@@ -20,7 +19,10 @@ const LaureatesList: React.FC<LaureatesListProps> = ({ currentLaureates, gatToLa
             <Text style={styles.name}>
               {item.firstname} {item.surname} ({item.year})
             </Text>
-            <Text style={styles.motivation}>{item.motivation}</Text>
+            <Text style={styles.motivation}>
+              {item.motivation.slice(0, 80)}
+              {"..."}
+            </Text>
           </View>
         </UiButton>
       )}
