@@ -6,15 +6,13 @@ import { ILaureateData } from "./types/laureates.type";
 import { TypeRootStackParamList } from "../../routes/types/ways.types";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { getLaureates } from "../../services/laureates/laureates.service";
-
-import { LIMIT } from "./constants/laureates.constants";
 import Pagination from "../../widgets/pagination/Pagination";
 import LaureatesList from "../../widgets/laureatesList/Laureates-list";
 
 const Laureates = () => {
   const [allLaureates, setAllLaureates] = useState<ILaureateData[]>([]);
   const [page, setPage] = useState(0);
-
+  const LIMIT: number = 5;
   const start = page * LIMIT;
   const end = start + LIMIT;
   const currentLaureates = allLaureates.slice(start, end);

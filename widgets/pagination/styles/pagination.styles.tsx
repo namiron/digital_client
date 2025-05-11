@@ -3,22 +3,29 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 5,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingVertical: 20,
+    gap: 12,
   },
   button: {
-    paddingVertical: 5,
-    paddingHorizontal: 10,
     backgroundColor: "#007bff",
+    paddingVertical: 10,
+    paddingHorizontal: 16,
     borderRadius: 8,
   },
   buttonDisabled: {
-    backgroundColor: "#aac9f0",
-    opacity: 0.6,
+    backgroundColor: "#ccc",
   },
   buttonText: {
     color: "#fff",
-    fontWeight: "600",
     fontSize: 16,
+    fontWeight: "600",
+  },
+  pageIndicator: {
+    fontSize: 16,
+    fontWeight: "500",
+    color: "#333",
+    paddingHorizontal: 10,
   },
 });

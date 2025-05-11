@@ -7,11 +7,11 @@ import { getCategories } from "../../services/laureates/laureates.service";
 import CategoryList from "../../widgets/category-list/Category-list";
 import { styles } from "./styles/home.styles";
 import BurgerMenu from "../../widgets/menu/Menu";
-import { CATEGORIES } from "./constants/home.constants";
 
 const Home = () => {
   const [categories, setCategories] = useState<string[]>([]);
   const navigation = useNavigation<NativeStackNavigationProp<TypeRootStackParamList>>();
+  const CATEGORIES: string = "Categories";
 
   useEffect(() => {
     const get = async () => {

@@ -40,12 +40,15 @@ export const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   signUp: {
-    paddingTop: 10,
     fontSize: 16,
   },
   accountLink: {
     paddingLeft: 10,
-    fontWeight: 400,
     color: "#007bff",
+    fontWeight: 500,
+  },
+  text: {
+    marginTop: 10,
+    paddingTop: 10,
   },
 });
