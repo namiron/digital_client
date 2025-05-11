@@ -12,7 +12,6 @@ const PrivateNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerShown: false,
         contentStyle: {
           backgroundColor: "#fff",
         },

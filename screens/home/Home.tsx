@@ -1,41 +1,35 @@
-import React, { useContext } from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
-import { clearStorage } from "../../services/auth/auth.helper";
-import { AuthContext } from "../../providers/auth/auth.context";
+import { TypeRootStackParamList } from "../../routes/types/ways.types";
+import { useAuth } from "../../hooks/useAuth";
+import { getCategories } from "../../services/laureates/laureates.service";
+import CategoryList from "../../widgets/category-list/Category-list";
 
-const Home: React.FC = () => {
-  const navigation = useNavigation();
-  const { setUser } = useContext(AuthContext);
+const Home = () => {
+  const [categories, setCategories] = useState<string[]>([]);
+  const navigation = useNavigation<NativeStackNavigationProp<TypeRootStackParamList>>();
+  const { user } = useAuth();
 
-  const handleLogout = async () => {
-    try {
-      await clearStorage();
-      setUser(null);
-    } catch (error) {
-      console.error("Logout error:", error);
-    }
+  useEffect(() => {
+    const fetch = async () => {
+      const data = await getCategories();
+      setCategories(data);
+      console.log(user);
+    };
+    fetch();
+  }, []);
+  const goToCategory = (item: string) => {
+    return navigation.navigate("Laureates", { category: item });
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>🏠 Добро пожаловать домой!</Text>
-      <Button title="Выйти из аккаунта" onPress={handleLogout} />
+    <View style={{ padding: 20 }}>
+      <Text style={{ fontSize: 24, marginBottom: 10 }}>Категории:</Text>
+      <CategoryList categories={categories} goToCategory={goToCategory} />
     </View>
   );
 };
 
 export default Home;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 16,
-  },
-  title: {
-    fontSize: 22,
-    marginBottom: 20,
-  },
-});

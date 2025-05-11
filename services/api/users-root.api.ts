@@ -2,7 +2,6 @@ import axios from "axios";
 import { getToken } from "../auth/auth.helper";
 
 const baseURL = process.env.EXPO_PUBLIC_SERVER_URL;
-console.log(baseURL);
 
 export const API = axios.create({
   baseURL,

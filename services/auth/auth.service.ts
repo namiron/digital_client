@@ -1,4 +1,4 @@
-import { API } from "../api/root.api";
+import { API } from "../api/users-root.api";
 import { saveUser } from "./auth.helper";
 
 export const AuthService = {
