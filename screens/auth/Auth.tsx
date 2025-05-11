@@ -4,7 +4,7 @@ import { Text, View } from "react-native";
 import { AuthContext } from "../../providers/auth/auth.context";
 import { AuthService } from "../../services/auth/auth.service";
 import { styles } from "./styles/auth.styles";
-import Field from "../../ui/ui-field/field";
+import Field from "../../ui/ui-field/Field";
 import UiButton from "../../ui/ui-button/Button";
 import {
   E_EMAIL,

@@ -10,12 +10,12 @@ const Field = <T extends Record<string, any>>({ control, name, rules, placeholde
       control={control}
       name={name}
       rules={rules}
-      render={({ field: { onChange, value, onBlur }, fieldState: { error } }) => (
+      render={({ field: { onChange, value }, fieldState: { error } }) => (
         <View style={{ marginBottom: 16 }}>
           <TextInput
             style={[styles.input, error && styles.inputError]}
             onChangeText={onChange}
-            value={(value || '').toString()}
+            value={(value || "").toString()}
             placeholder={placeholder}
             {...rest}
           />
