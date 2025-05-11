@@ -1,14 +1,20 @@
 import React, { createContext, useState, useEffect } from "react";
 import * as SplashScreen from "expo-splash-screen";
 import { getUser } from "../../services/auth/auth.helper";
+import { IUser } from "../../screens/auth/types/user.types";
 
-export const AuthContext = createContext({
+interface AuthContextType {
+  user: IUser | null;
+  setUser: (user: IUser | null) => void;
+}
+
+export const AuthContext = createContext<AuthContextType>({
   user: null,
-  setUser: (_: any) => {},
+  setUser: () => {},
 });
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<IUser | null>(null);
 
   useEffect(() => {
     const loadUser = async () => {

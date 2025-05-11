@@ -1,21 +1,28 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { Text, ScrollView } from "react-native";
 import { useRoute, RouteProp } from "@react-navigation/native";
 import { ILaureateData } from "../laureates/types/laureates.type";
+import { styles } from "./styles/item.styles";
 
 const Item = () => {
   const route = useRoute<RouteProp<{ params: { laureate: ILaureateData } }, "params">>();
   const { laureate } = route.params;
 
   return (
-    <View style={{ padding: 20 }}>
-      <Text style={{ fontSize: 24 }}>
+    <ScrollView contentContainerStyle={styles.container}>
+      <Text style={styles.name}>
         {laureate.firstname} {laureate.surname}
       </Text>
-      <Text>Year: {laureate.year}</Text>
-      <Text>Motivation: {laureate.motivation}</Text>
-      <Text>Category: {laureate.category}</Text>
-    </View>
+      <Text style={styles.info}>
+        Year: <Text style={styles.highlight}>{laureate.year}</Text>
+      </Text>
+      <Text style={styles.info}>
+        Motivation: <Text style={styles.highlight}>{laureate.motivation}</Text>
+      </Text>
+      <Text style={styles.info}>
+        Category: <Text style={styles.highlight}>{laureate.category}</Text>
+      </Text>
+    </ScrollView>
   );
 };
 

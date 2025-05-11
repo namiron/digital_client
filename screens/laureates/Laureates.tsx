@@ -9,7 +9,7 @@ import { getLaureates } from "../../services/laureates/laureates.service";
 
 import { LIMIT } from "./constants/laureates.constants";
 import Pagination from "../../widgets/pagination/Pagination";
-import LaureatesList from "../../widgets/laureatesList/laureates-list";
+import LaureatesList from "../../widgets/laureatesList/Laureates-list";
 
 const Laureates = () => {
   const [allLaureates, setAllLaureates] = useState<ILaureateData[]>([]);
