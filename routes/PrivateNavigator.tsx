@@ -1,8 +1,9 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useAuth } from "../hooks/useAuth";
 import { TypeRootStackParamList } from "./types/ways.types";
-import { routes } from "./Routes.routes";
+
 import Auth from "../screens/auth/Auth";
+import { routes } from "./Routes.routes";
 
 const Stack = createNativeStackNavigator<TypeRootStackParamList>();
 
@@ -17,7 +18,11 @@ const PrivateNavigator = () => {
         },
       }}
     >
-      {user ? routes.map((route) => <Stack.Screen key={route.name} {...route} />) : <Stack.Screen name="Auth" component={Auth} />}
+      {user ? (
+        routes.map(({ name, component, options }) => <Stack.Screen key={name} name={name} component={component} options={options} />)
+      ) : (
+        <Stack.Screen name="Auth" component={Auth} />
+      )}
     </Stack.Navigator>
   );
 };
