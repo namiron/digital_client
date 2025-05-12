@@ -8,9 +8,11 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { getLaureates } from "../../services/laureates/laureates.service";
 import Pagination from "../../widgets/pagination/Pagination";
 import LaureatesList from "../../widgets/laureatesList/Laureates-list";
+import { Loading } from "../../ui/ui-loading/Loading";
 
 const Laureates = () => {
   const [allLaureates, setAllLaureates] = useState<ILaureateData[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
   const [page, setPage] = useState(0);
   const LIMIT: number = 5;
   const start = page * LIMIT;
@@ -22,9 +24,11 @@ const Laureates = () => {
 
   useEffect(() => {
     const load = async () => {
+      setLoading(true);
       const data = await getLaureates(route.params.category);
       setAllLaureates(data);
       setPage(0);
+      setLoading(false);
     };
     load();
   }, [route.params.category]);
@@ -36,8 +40,14 @@ const Laureates = () => {
   return (
     <View style={{ padding: 20 }}>
       <Text style={{ fontSize: 20, marginBottom: 10 }}>Category: {route.params.category}</Text>
-      <LaureatesList currentLaureates={currentLaureates} gatToLaureate={gatToLaureate} />
-      <Pagination allLaureates={allLaureates} start={start} end={end} page={page} setPage={setPage} />
+      {loading ? (
+        <Loading />
+      ) : (
+        <View>
+          <LaureatesList currentLaureates={currentLaureates} gatToLaureate={gatToLaureate} />
+          <Pagination allLaureates={allLaureates} start={start} end={end} page={page} setPage={setPage} />
+        </View>
+      )}
     </View>
   );
 };
