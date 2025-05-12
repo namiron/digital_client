@@ -34,7 +34,7 @@ const Home = () => {
       <View style={styles.wrapper}>
         <View style={styles.heading}>
           <Text style={styles.title}>{CATEGORIES}</Text>
-          <BurgerMenu />
+          {/* <BurgerMenu /> */}
         </View>
         {loading ? <Loading /> : <CategoryList categories={categories} goToCategory={goToCategory} />}
       </View>
